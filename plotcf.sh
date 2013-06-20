@@ -1,17 +1,142 @@
 # #####################################
-# #AVG SEP 10cm  f1 0-5%
+# #central 30-50 PidTpcTof 11h
 # #####################################
-root -l -b -q plotcf.C\(\"PP\",\"\",\"\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
-root -l -b -q plotcf.C\(\"PP\",\"kT0\",\"\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
-root -l -b -q plotcf.C\(\"PP\",\"kT1\",\"\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
+root -l -b -q plotcf.C\(\"PP\",\"\",\"\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
+root -l -b -q plotcf.C\(\"PP\",\"kT0\",\"\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
+root -l -b -q plotcf.C\(\"PP\",\"kT1\",\"\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
 
-root -l -b -q plotcf.C\(\"APAP\",\"\",\"\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
-root -l -b -q plotcf.C\(\"APAP\",\"kT0\",\"\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
-root -l -b -q plotcf.C\(\"APAP\",\"kT1\",\"\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
+root -l -b -q plotcf.C\(\"APAP\",\"\",\"\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
+root -l -b -q plotcf.C\(\"APAP\",\"kT0\",\"\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
+root -l -b -q plotcf.C\(\"APAP\",\"kT1\",\"\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
 
-root -l -b -q plotcf.C\(\"PAP\",\"\",\"Out\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
-root -l -b -q plotcf.C\(\"PAP\",\"kT0\",\"Out\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
-root -l -b -q plotcf.C\(\"PAP\",\"kT1\",\"Out\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
+root -l -b -q plotcf.C\(\"PAP\",\"\",\"Out\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
+root -l -b -q plotcf.C\(\"PAP\",\"kT0\",\"Out\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
+root -l -b -q plotcf.C\(\"PAP\",\"kT1\",\"Out\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
+
+# #####################################
+# #central 30-50 PidTpcTof 10h
+# #####################################
+root -l -b -q plotcf.C\(\"PP\",\"\",\"\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
+root -l -b -q plotcf.C\(\"PP\",\"kT0\",\"\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
+root -l -b -q plotcf.C\(\"PP\",\"kT1\",\"\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
+./
+root -l -b -q plotcf.C\(\"APAP\",\"\",\"\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
+root -l -b -q plotcf.C\(\"APAP\",\"kT0\",\"\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
+root -l -b -q plotcf.C\(\"APAP\",\"kT1\",\"\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
+
+root -l -b -q plotcf.C\(\"PAP\",\"\",\"Out\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
+root -l -b -q plotcf.C\(\"PAP\",\"kT0\",\"Out\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
+root -l -b -q plotcf.C\(\"PAP\",\"kT1\",\"Out\",4,\"../train_results_jun19_11h/semicentral_PidTpcTofcen4.root\",11,3\)
+
+# #####################################
+# #central 10-30 PidTpcTof 11h
+# #####################################
+root -l -b -q plotcf.C\(\"PP\",\"\",\"\",2,\"../train_results_jun19_11h/semicentral_PidTpcTofcen2.root\",11,3\)
+root -l -b -q plotcf.C\(\"PP\",\"kT0\",\"\",2,\"../train_results_jun19_11h/semicentral_PidTpcTofcen2.root\",11,3\)
+root -l -b -q plotcf.C\(\"PP\",\"kT1\",\"\",2,\"../train_results_jun19_11h/semicentral_PidTpcTofcen2.root\",11,3\)
+
+root -l -b -q plotcf.C\(\"APAP\",\"\",\"\",2,\"../train_results_jun19_11h/semicentral_PidTpcTofcen2.root\",11,3\)
+root -l -b -q plotcf.C\(\"APAP\",\"kT0\",\"\",2,\"../train_results_jun19_11h/semicentral_PidTpcTofcen2.root\",11,3\)
+root -l -b -q plotcf.C\(\"APAP\",\"kT1\",\"\",2,\"../train_results_jun19_11h/semicentral_PidTpcTofcen2.root\",11,3\)
+
+root -l -b -q plotcf.C\(\"PAP\",\"\",\"Out\",2,\"../train_results_jun19_11h/semicentral_PidTpcTofcen2.root\",11,3\)
+root -l -b -q plotcf.C\(\"PAP\",\"kT0\",\"Out\",2,\"../train_results_jun19_11h/semicentral_PidTpcTofcen2.root\",11,3\)
+root -l -b -q plotcf.C\(\"PAP\",\"kT1\",\"Out\",2,\"../train_results_jun19_11h/semicentral_PidTpcTofcen2.root\",11,3\)
+
+# #####################################
+# #central 10-30 PidTpcTof 10h
+# #####################################
+root -l -b -q plotcf.C\(\"PP\",\"\",\"\",2,\"../train_results_jun19_10h/semicentral_PidTpcTofcen2.root\",11,3\)
+root -l -b -q plotcf.C\(\"PP\",\"kT0\",\"\",2,\"../train_results_jun19_10h/semicentral_PidTpcTofcen2.root\",11,3\)
+root -l -b -q plotcf.C\(\"PP\",\"kT1\",\"\",2,\"../train_results_jun19_10h/semicentral_PidTpcTofcen2.root\",11,3\)
+
+root -l -b -q plotcf.C\(\"APAP\",\"\",\"\",2,\"../train_results_jun19_10h/semicentral_PidTpcTofcen2.root\",11,3\)
+root -l -b -q plotcf.C\(\"APAP\",\"kT0\",\"\",2,\"../train_results_jun19_10h/semicentral_PidTpcTofcen2.root\",11,3\)
+root -l -b -q plotcf.C\(\"APAP\",\"kT1\",\"\",2,\"../train_results_jun19_10h/semicentral_PidTpcTofcen2.root\",11,3\)
+
+root -l -b -q plotcf.C\(\"PAP\",\"\",\"Out\",2,\"../train_results_jun19_10h/semicentral_PidTpcTofcen2.root\",11,3\)
+root -l -b -q plotcf.C\(\"PAP\",\"kT0\",\"Out\",2,\"../train_results_jun19_10h/semicentral_PidTpcTofcen2.root\",11,3\)
+root -l -b -q plotcf.C\(\"PAP\",\"kT1\",\"Out\",2,\"../train_results_jun19_10h/semicentral_PidTpcTofcen2.root\",11,3\)
+
+# # #####################################
+# # #central 0-10 PidTpcOnly 11h
+# # #####################################
+# root -l -b -q plotcf.C\(\"PP\",\"\",\"\",0,\"../train_results_jun19_11h/central_PidTpcOnlycen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PP\",\"kT0\",\"\",0,\"../train_results_jun19_11h/central_PidTpcOnlycen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PP\",\"kT1\",\"\",0,\"../train_results_jun19_11h/central_PidTpcOnlycen0.root\",11,3\)
+
+# root -l -b -q plotcf.C\(\"APAP\",\"\",\"\",0,\"../train_results_jun19_11h/central_PidTpcOnlycen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"APAP\",\"kT0\",\"\",0,\"../train_results_jun19_11h/central_PidTpcOnlycen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"APAP\",\"kT1\",\"\",0,\"../train_results_jun19_11h/central_PidTpcOnlycen0.root\",11,3\)
+
+# root -l -b -q plotcf.C\(\"PAP\",\"\",\"Out\",0,\"../train_results_jun19_11h/central_PidTpcOnlycen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PAP\",\"kT0\",\"Out\",0,\"../train_results_jun19_11h/central_PidTpcOnlycen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PAP\",\"kT1\",\"Out\",0,\"../train_results_jun19_11h/central_PidTpcOnlycen0.root\",11,3\)
+
+# # #####################################
+# # #central 0-10 PidTpcOnly 10h
+# # #####################################
+# root -l -b -q plotcf.C\(\"PP\",\"\",\"\",0,\"../train_results_jun19_10h/central_PidTpcOnlycen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PP\",\"kT0\",\"\",0,\"../train_results_jun19_10h/central_PidTpcOnlycen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PP\",\"kT1\",\"\",0,\"../train_results_jun19_10h/central_PidTpcOnlycen0.root\",11,3\)
+
+# root -l -b -q plotcf.C\(\"APAP\",\"\",\"\",0,\"../train_results_jun19_10h/central_PidTpcOnlycen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"APAP\",\"kT0\",\"\",0,\"../train_results_jun19_10h/central_PidTpcOnlycen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"APAP\",\"kT1\",\"\",0,\"../train_results_jun19_10h/central_PidTpcOnlycen0.root\",11,3\)
+
+# root -l -b -q plotcf.C\(\"PAP\",\"\",\"Out\",0,\"../train_results_jun19_10h/central_PidTpcOnlycen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PAP\",\"kT0\",\"Out\",0,\"../train_results_jun19_10h/central_PidTpcOnlycen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PAP\",\"kT1\",\"Out\",0,\"../train_results_jun19_10h/central_PidTpcOnlycen0.root\",11,3\)
+
+# # #####################################
+# # #central 0-10 PidTpcTof 11h
+# # #####################################
+# root -l -b -q plotcf.C\(\"PP\",\"\",\"\",0,\"../train_results_jun19_11h/central_PidTpcTofcen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PP\",\"kT0\",\"\",0,\"../train_results_jun19_11h/central_PidTpcTofcen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PP\",\"kT1\",\"\",0,\"../train_results_jun19_11h/central_PidTpcTofcen0.root\",11,3\)
+
+# root -l -b -q plotcf.C\(\"APAP\",\"\",\"\",0,\"../train_results_jun19_11h/central_PidTpcTofcen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"APAP\",\"kT0\",\"\",0,\"../train_results_jun19_11h/central_PidTpcTofcen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"APAP\",\"kT1\",\"\",0,\"../train_results_jun19_11h/central_PidTpcTofcen0.root\",11,3\)
+
+# root -l -b -q plotcf.C\(\"PAP\",\"\",\"Out\",0,\"../train_results_jun19_11h/central_PidTpcTofcen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PAP\",\"kT0\",\"Out\",0,\"../train_results_jun19_11h/central_PidTpcTofcen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PAP\",\"kT1\",\"Out\",0,\"../train_results_jun19_11h/central_PidTpcTofcen0.root\",11,3\)
+
+# # #####################################
+# # #central 0-10 PidTpcTof 10h
+# # #####################################
+# root -l -b -q plotcf.C\(\"PP\",\"\",\"\",0,\"../train_results_jun19_10h/central_PidTpcTofcen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PP\",\"kT0\",\"\",0,\"../train_results_jun19_10h/central_PidTpcTofcen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PP\",\"kT1\",\"\",0,\"../train_results_jun19_10h/central_PidTpcTofcen0.root\",11,3\)
+
+# root -l -b -q plotcf.C\(\"APAP\",\"\",\"\",0,\"../train_results_jun19_10h/central_PidTpcTofcen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"APAP\",\"kT0\",\"\",0,\"../train_results_jun19_10h/central_PidTpcTofcen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"APAP\",\"kT1\",\"\",0,\"../train_results_jun19_10h/central_PidTpcTofcen0.root\",11,3\)
+
+# root -l -b -q plotcf.C\(\"PAP\",\"\",\"Out\",0,\"../train_results_jun19_10h/central_PidTpcTofcen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PAP\",\"kT0\",\"Out\",0,\"../train_results_jun19_10h/central_PidTpcTofcen0.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PAP\",\"kT1\",\"Out\",0,\"../train_results_jun19_10h/central_PidTpcTofcen0.root\",11,3\)
+
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
+
+# # #####################################
+# # #AVG SEP 10cm  f1 0-5%
+# # #####################################
+# root -l -b -q plotcf.C\(\"PP\",\"\",\"\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PP\",\"kT0\",\"\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PP\",\"kT1\",\"\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
+
+# root -l -b -q plotcf.C\(\"APAP\",\"\",\"\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
+# root -l -b -q plotcf.C\(\"APAP\",\"kT0\",\"\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
+# root -l -b -q plotcf.C\(\"APAP\",\"kT1\",\"\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
+
+# root -l -b -q plotcf.C\(\"PAP\",\"\",\"Out\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PAP\",\"kT0\",\"Out\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
+# root -l -b -q plotcf.C\(\"PAP\",\"kT1\",\"Out\",0,\"avgsep/avgsepcut10/resultsf1/avgsepcut10.root\",11,3\)
 
 # # #####################################
 # # #AVG SEP f1 0-5%

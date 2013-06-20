@@ -182,10 +182,10 @@ TLegend *leg = new TLegend (0.3,0.7,0.8,0.8);
 
   leg->Draw("same");
 
-  can->SaveAs(Form("figs/comparison_%s/%s%s.png",cmp,system,kT));
+  // can->SaveAs(Form("figs/comparison_%s/%s%s.png",cmp,system,kT));
 
-  TFile* ofile = new TFile(Form("figs/comparison_%s/cfmb%s%s.root",cmp,system,kT),"recreate");
-  cfv3->Write();
-  cfv4->Write();
+  // TFile* ofile = new TFile(Form("figs/comparison_%s/cfmb%s%s.root",cmp,system,kT),"recreate");
+  // cfv3->Write();
+  // cfv4->Write();
 
 }

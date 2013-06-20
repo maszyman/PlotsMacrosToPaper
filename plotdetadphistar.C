@@ -1,19 +1,40 @@
-void plotdetadphistar(const char* infilename1, const char* system, const char* kT) {
+void plotdetadphistar(const char* infilename1, const char* system, const char* kT, int qinvdist = 0) {
 
 
   TFile* infile1 = new TFile(infilename1,"read");
 
-  TH1D* num;
-  TH1D* den;
+  TH2D* num;
+  TH2D* den;
   int psibins1 = 3; // 3, 6
   int psibins2 = 3; // 3, 6
 
+  if (qinvdist == 0) {
+    num = (TH2D*)infile1->Get(Form("NumRadDcqinvinner%stpcM0",system,kT));
+    den = (TH2D*)infile1->Get(Form("DenRadDcqinvinner%stpcM0",system,kT));
 
-  num = (TH1D*)infile1->Get(Form("NumRadDcqinvinner%stpcM0",system,kT));
-  den = (TH1D*)infile1->Get(Form("DenRadDcqinvinner%stpcM0",system,kT));
+    num->SetXTitle("#Delta #phi*");
+    num->SetYTitle("#Delta #eta");
 
-  num->SetXTitle("#Delta #phi*");
-  num->SetYTitle("#Delta #eta");
+    // proxnum = (TH2D*)infile1->Get(Form("NumRadDcqinvinner%stpcM0",system,kT));
+    // proxden = (TH2D*)infile1->Get(Form("DenRadDcqinvinner%stpcM0",system,kT));
+    TH1D* proxnum_dphis = (TH1D*)num->ProjectionX("proxnum_dphis",1,50,"e");
+    TH1D* proxden_dphis = (TH1D*)den->ProjectionX("proxden_dphis",1,50,"e");
+
+    // proynum = (TH2D*)infile1->Get(Form("NumRadDcqinvinner%stpcM0",system,kT));
+    // proyden = (TH2D*)infile1->Get(Form("DenRadDcqinvinner%stpcM0",system,kT));
+    TH1D* proynum_deta = (TH1D*)num->ProjectionY("proynum_deta",1,50,"e");
+    TH1D* proyden_deta = (TH1D*)den->ProjectionY("proyden_deta",1,50,"e");
+
+  }
+  else {
+    num = (TH2D*)infile1->Get(Form("NumDTPCcqinvinner%stpcM0",system,kT));
+    den = (TH2D*)infile1->Get(Form("DenDTPCcqinvinner%stpcM0",system,kT));
+
+    num->SetXTitle("q_{inv}");
+    num->SetYTitle("separation");
+
+  }
+
   num->SetTitle("");
 
 
@@ -63,7 +84,44 @@ void plotdetadphistar(const char* infilename1, const char* system, const char* k
     if (mult==0)
       Tl.DrawLatex(40,1.17,"0-10%");
   }
-  can->SaveAs(Form("figs/DetaDphistar%s%s.png",system,kT));
 
+  if (qinvdist == 0)
+    can->SaveAs(Form("figs/DetaDphistar%s%s.png",system,kT));
+  else
+    can->SaveAs(Form("figs/DistQinv%s%s.png",system,kT));
+
+  if (qinvdist == 0) {
+
+
+    // proxnum = (TH2D*)infile1->Get(Form("NumRadDcqinvinner%stpcM0",system,kT));
+    // proxden = (TH2D*)infile1->Get(Form("DenRadDcqinvinner%stpcM0",system,kT));
+    // TH1D* proxnum_dphis = (TH1D*)proxnum->ProjectionX("proxnum_dphis",1,50,"e");
+    // TH1D* proxden_dphis = (TH1D*)proxden->ProjectionX("proxden_dphis",1,50,"e");
+    double norm = proxden_dphis->Integral(1,50)/proxnum_dphis->Integral(1,50);
+    proxnum_dphis->Divide(proxden_dphis);
+    proxnum_dphis->Scale(norm);
+
+    norm = proyden_deta->Integral(1,50)/proynum_deta->Integral(1,50);
+    proynum_deta->Divide(proyden_deta);
+    proynum_deta->Scale(norm);
+
+    TCanvas* can2 = new TCanvas("asd2","asd2");
+    can2->SetLogy();
+    can2->Divide(2,1);
+    can2->cd(1);
+    proxnum_dphis->Draw();
+    can2->cd(2);
+    proynum_deta->Draw();
+
+
+
+    // num->ProjectionX("dphis",1,50,"e")->Draw();
+    // // TH1D* proj_deta = (TH1D*)num->ProjectionX("pro_deta",45,46,"e");
+    // // proj_deta->Scale(1./49.);
+    // //proj_deta->Draw();
+    // can2->cd(2);
+    // num->ProjectionY("deta",1,50,"e")->Draw();
+
+  }
 
 }

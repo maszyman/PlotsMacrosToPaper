@@ -454,10 +454,16 @@ void plotcf(const char* sys="PP", const char* kT="kT1", const char* proj="Out", 
   // cout << namef << endl;
 
   dir.ReplaceAll("/","_");
-  myCan->SaveAs(Form("figs/cf%s%s%sc%d.png",sys,dir.Data(),kT,mult));
+  dir.ReplaceAll("..","");
+  dir.ReplaceAll(".root","");
+  dir.ReplaceAll("_train_results_","");
+  dir.ReplaceAll("_semicentral_","");
+  dir.ReplaceAll("jun19_","");
+  myCan->SaveAs(Form("figs/cf%s%s%s.png",sys,dir.Data(),kT));
 
-  TFile* ofile = new TFile(Form("figs/cfmb%s%s%sc%d.root",sys,dir.Data(),kT,mult),"recreate");
+  TFile* ofile = new TFile(Form("figs/cf%s%s%s.root",sys,dir.Data(),kT),"recreate");
   numpp[0][2][Nruns]->Write();
+
   //numsum->Write();
 
 
