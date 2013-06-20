@@ -89,7 +89,7 @@ void plotavgsep(const char* infilename1, const char* system, const char* kT) {
   // leg->Draw("same");
 
   // can->SaveAs(Form("figs/comparison_%s/%s%s.png",cmp,system,kT));
-  can->SaveAs(Form("AvgSep%s%s.png",system,kT));
+  can->SaveAs(Form("figs/AvgSep%s%s.png",system,kT));
 
   // TFile* ofile = new TFile(Form("figs/comparison_%s/cfmb%s%s.root",cmp,system,kT),"recreate");
   // num->Write();
