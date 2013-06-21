@@ -50,14 +50,14 @@ void postprocess(TCanvas* c2, const char* name, Int_t rWrite, Int_t rPerformance
   }
 
   if (rWrite == 1)
-    c2->SaveAs(Form("%s.png",name));
+    c2->SaveAs(Form("figs/%s.png",name));
 
   if (rWrite == 2)
-    c2->SaveAs(Form("%s.eps",name));
+    c2->SaveAs(Form("figs/%s.eps",name));
 
 }
 
-void drawDist(const char* infilename, const char* system, Int_t rWrite, Int_t rPerformance) {
+void drawDist(TString infilename, const char* system, Int_t rWrite, Int_t rPerformance) {
 
   myOptions(0);
 
@@ -75,33 +75,68 @@ void drawDist(const char* infilename, const char* system, Int_t rWrite, Int_t rP
   sprintf(cStamp1,"%i %s %i",iDay, cMonth[iMonth-1], iYear);
   sprintf(cStamp2,"%i/%.2d/%i",iDay, iMonth, iYear);
 
-  TFile *f = new TFile(infilename, "read");
+  TFile *f = new TFile(infilename.Data(), "read");
   // TList *list = (TList*)f->Get("femtolist");
 
   // pseudorapidity vs pt
-  TH2D* ypt =(TH2D*)f->Get(Form("EtaPtcutPass1%stpcM%iPsi6",system,0));
+  TH2D* ypt =(TH2D*)f->Get(Form("EtaPtcutPass1%stpcM%iPsi3",system,0));
+  // pseudorapidity vs phi
+  TH2D* yphi =(TH2D*)f->Get(Form("EtaPhicutPass1%stpcM%iPsi3",system,0));
+  // pT vs phi
+  TH2D* ptphi =(TH2D*)f->Get(Form("PtPhicutPass1%stpcM%iPsi3",system,0));
 
   int minMultBin = 0;
   int maxMultBin = 2;
   double EvMultall = 0;
 
   for(int i = minMultBin; i < maxMultBin; i++) {
-    TH1D* yptN =(TH1D*)f->Get(Form("EtaPtcutPass1%stpcM%iPsi6",system,i));
+    TH1D* yptN =(TH1D*)f->Get(Form("EtaPtcutPass1%stpcM%iPsi3",system,i));
     ypt->Add(yptN);
+    TH1D* yphiN =(TH1D*)f->Get(Form("EtaPhicutPass1%stpcM%iPsi3",system,i));
+    yphi->Add(yphiN);
+    TH1D* ptphiN =(TH1D*)f->Get(Form("PtPhicutPass1%stpcM%iPsi3",system,i));
+    ptphi->Add(ptphiN);
     //delete hEvMult;
   }
 
-  TCanvas *c2 = new TCanvas("pseudorapidity vs pt", "pseudorapidity vs pt");
-  c2->SetGridx();
-  c2->SetGridy();
+  TCanvas *c2 = new TCanvas("pseudorapidity vs pt", "pseudorapidity vs pt",1600,600);
+  c2->Divide(3,1);
+  // c2->SetGridx();
+  // c2->SetGridy();
   c2->SetFillColor(10);
+  ypt->GetXaxis()->SetTitleSize(0.05);
+  ypt->GetYaxis()->SetTitleSize(0.05);
   ypt->GetXaxis()->SetTitle("#eta");
   ypt->GetYaxis()->SetTitle("p_{T}");
-  ypt->GetXaxis()->SetTitleOffset(1.3);
-  ypt->GetYaxis()->SetTitleOffset(1.3);
-  ypt->GetXaxis()->SetRangeUser(-0.8,0.8);
-  ypt->GetYaxis()->SetRangeUser(0.1,8.);
+  // ypt->GetXaxis()->SetTitleOffset(1.3);
+  // ypt->GetYaxis()->SetTitleOffset(1.3);
+  // ypt->GetXaxis()->SetRangeUser(-0.8,0.8);
+  // ypt->GetYaxis()->SetRangeUser(0.1,8.);
+
+  yphi->GetXaxis()->SetTitleSize(0.05);
+  yphi->GetYaxis()->SetTitleSize(0.05);
+  yphi->GetXaxis()->SetTitle("#eta");
+  yphi->GetYaxis()->SetTitle("#phi");
+  // yphi->GetXaxis()->SetTitleOffset(1.3);
+  // yphi->GetYaxis()->SetTitleOffset(1.3);
+  // yphi->GetXaxis()->SetRangeUser(-0.8,0.8);
+  // yphi->GetYaxis()->SetRangeUser(0.1,8.);
+
+  ptphi->GetXaxis()->SetTitleSize(0.05);
+  ptphi->GetYaxis()->SetTitleSize(0.05);
+  ptphi->GetXaxis()->SetTitle("p_{T}");
+  ptphi->GetYaxis()->SetTitle("#phi");
+  // ptphi->GetXaxis()->SetTitleOffset(1.3);
+  // ptphi->GetYaxis()->SetTitleOffset(1.3);
+  // ptphi->GetXaxis()->SetRangeUser(-0.8,0.8);
+  // ptphi->GetYaxis()->SetRangeUser(0.1,8.);
+
+  c2->cd(1);
   ypt->Draw("colz");
+  c2->cd(2);
+  yphi->Draw("colz");
+  c2->cd(3);
+  ptphi->Draw("colz");
 
   // https://wiki.bnl.gov/eic/index.php/ROOT#Moving_and_resizing_the_palette_axis_of_a_2D_histogram
   gPad->SetRightMargin( 0.12 ); // The default right margin is 0.1 i.e. 10% of the image width
@@ -113,7 +148,11 @@ void drawDist(const char* infilename, const char* system, Int_t rWrite, Int_t rP
 //     gPad->Modified(); // Update with the new position
 //   } // if
 
-  postprocess(c2,Form("ypt%s",system),rWrite,rPerformance);
+
+  infilename.ReplaceAll(".root","");
+  infilename.ReplaceAll("../train_results_","");
+  infilename.ReplaceAll("/","");
+  postprocess(c2,Form("monitors_%s",infilename.Data()),rWrite,rPerformance);
 
 }
 

@@ -55,6 +55,8 @@ void drawDCA(const char* infilename, const char* system, const char* status, Int
 
   // DCA xy
   TH2D* DCAxy =(TH2D*)f->Get(Form("DCARPtcut%s1%stpcM%dPsi%d","Pass", system,0,psibins));
+  // DCA z
+  TH2D* DCAz =(TH2D*)f->Get(Form("DCAZPtcut%s1%stpcM%dPsi%d","Pass", system,0,psibins));
 
 
   if (!bin) {
@@ -76,6 +78,9 @@ void drawDCA(const char* infilename, const char* system, const char* status, Int
     TH2D* DCAxyN = (TH2D*)f->Get(Form("DCARPtcut%s1%stpcM%dPsi%d",status, system,i,psibins));
     DCAxy->Add(DCAxyN);
 
+    TH2D* DCAzN = (TH2D*)f->Get(Form("DCAZPtcut%s1%stpcM%dPsi%d",status, system,i,psibins));
+    DCAz->Add(DCAzN);
+
     cout<<i<<" "<<DCAxyN->GetEntries()<<endl;
 
     //delete hEvMult;
@@ -84,14 +89,15 @@ void drawDCA(const char* infilename, const char* system, const char* status, Int
 
   if (!isMC) {
     TCanvas *c2 = new TCanvas("DCA xy prim", "DCA xy prim");
-    c2->SetGridx();
-    c2->SetGridy();
+    // c2->SetGridx();
+    // c2->SetGridy();
     c2->SetFillColor(10);
     c2->SetRightMargin(1.9);
     c2->SetLogz();
 
     DCAxy->GetXaxis()->SetTitle("DCA_{XY} (cm)");
-    DCAxy->GetXaxis()->SetRangeUser(-5.0,5.0);
+    DCAxy->SetTitle("");
+    DCAxy->GetXaxis()->SetRangeUser(-0.35,0.35);
     DCAxy->GetYaxis()->SetTitle("#it{p}_{T} (GeV/#it{c})");
     // DCAxy->GetZaxis()->SetLabelSize(0.05);
      DCAxy->GetXaxis()->SetLabelSize(0.035);
@@ -102,6 +108,27 @@ void drawDCA(const char* infilename, const char* system, const char* status, Int
 
     DCAxy->Draw("colz");
     postprocess(c2,Form("DCAxy%s",status),rWrite,rPerformance,system);
+
+    TCanvas *c22 = new TCanvas("DCA z prim", "DCA z prim");
+    // c2->SetGridx();
+    // c2->SetGridy();
+    c22->SetFillColor(10);
+    c22->SetRightMargin(1.9);
+    c22->SetLogz();
+
+    DCAz->GetXaxis()->SetTitle("DCA_{Z} (cm)");
+    DCAz->SetTitle("");
+    DCAz->GetXaxis()->SetRangeUser(-0.35,0.35);
+    DCAz->GetYaxis()->SetTitle("#it{p}_{T} (GeV/#it{c})");
+    // DCAxy->GetZaxis()->SetLabelSize(0.05);
+     DCAz->GetXaxis()->SetLabelSize(0.035);
+     DCAz->GetXaxis()->SetTitleSize(0.045);
+     DCAz->GetYaxis()->SetLabelSize(0.035);
+     DCAz->GetYaxis()->SetTitleSize(0.045);
+     DCAz->GetZaxis()->SetLabelSize(0.035);
+
+    DCAz->Draw("colz");
+    postprocess(c22,Form("DCAz%s",status),rWrite,rPerformance,system);
 
     // TCanvas *c4 = new TCanvas("DCA xy Projection X", "DCA xy Projection X");
     // c4->SetGridx();
@@ -589,8 +616,8 @@ void drawDCA(const char* infilename, const char* system, const char* status, Int
       model = "hijing";
     }
 
-    cansum->SaveAs(Form("DCAxyMC_%s_%s.png",model,system));
-    cansum->SaveAs(Form("DCAxyMC_%s_%s.eps",model,system));
+    cansum->SaveAs(Form("figs/DCAxyMC_%s_%s.png",model,system));
+    cansum->SaveAs(Form("figs/DCAxyMC_%s_%s.eps",model,system));
 
   }
 
@@ -736,9 +763,10 @@ void postprocess(TCanvas* c2, const char* name, Int_t rWrite, Int_t rPerformance
   }
 
   if (rWrite == 1){
-    c2->SaveAs(Form("%s_%s.png",name,system));
+    c2->SaveAs(Form("figs/%s_%s.png",name,system));
+    cout << "Asd" << endl;
     //}
     //if (rWrite == 2)
-    c2->SaveAs(Form("%s.eps",name));
+    //c2->SaveAs(Form("figs/%s.eps",name));
   }
 }

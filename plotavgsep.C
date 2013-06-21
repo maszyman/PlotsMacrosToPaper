@@ -1,7 +1,7 @@
-void plotavgsep(const char* infilename1, const char* system, const char* kT) {
+void plotavgsep(TString infilename1, const char* system, const char* kT) {
 
 
-  TFile* infile1 = new TFile(infilename1,"read");
+  TFile* infile1 = new TFile(infilename1.Data(),"read");
 
   TH1D* num;
   TH1D* den;
@@ -89,7 +89,12 @@ void plotavgsep(const char* infilename1, const char* system, const char* kT) {
   // leg->Draw("same");
 
   // can->SaveAs(Form("figs/comparison_%s/%s%s.png",cmp,system,kT));
-  can->SaveAs(Form("figs/AvgSep%s%s.png",system,kT));
+
+  infilename1.ReplaceAll(".root","");
+  infilename1.ReplaceAll("../train_results_","");
+  infilename1.ReplaceAll("/","");
+
+  can->SaveAs(Form("figs/AvgSep%s%s%s.png",system,kT,infilename1.Data()));
 
   // TFile* ofile = new TFile(Form("figs/comparison_%s/cfmb%s%s.root",cmp,system,kT),"recreate");
   // num->Write();

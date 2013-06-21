@@ -1,4 +1,4 @@
-void plotcomparison(const char* infilename1, const char* infilename2, const char* system, const char* kT) {
+void plotcomparison(const char* infilename1, const char* infilename2, const char* system, const char* kT, const char* cmp) {
 
 
   TFile* infile1 = new TFile(infilename1,"read");
@@ -111,7 +111,7 @@ void plotcomparison(const char* infilename1, const char* infilename2, const char
   // const char* cmp = "ttcmin_nottc";
   // const char* cmp = "ttc16_ttcmin";
   // const char* cmp = "ttcmin_f1_f3";
-  const char* cmp = "ttc16_ttc16dca24";
+  // const char* cmp = "ttc16_ttc16dca24";
 
 
   int mult = 0;
@@ -170,9 +170,9 @@ TLegend *leg = new TLegend (0.3,0.7,0.8,0.8);
   // leg->AddEntry(cfv3,"#Delta #eta < 0.03 #Delta #phi * < 0.04 @ R=1.6m","p");
   // leg->AddEntry(cfv4,"#Delta #eta < 0.03 #Delta #phi_{min} * < 0.04","p");
 
-  leg->AddEntry(cfv3,"DCA pT-dep (strict)","p");
-  leg->AddEntry(cfv4,"DCA_{xy} < 2.4 cm","p");
-  (strcmp(system,"PAP"))?Tl.DrawLatex(0.12,1.493,"#Delta #eta < 0.03 #Delta #phi * < 0.04 @ R=1.6m"):Tl.DrawLatex(0.2,1.01,"#Delta #eta < 0.03 #Delta #phi * < 0.04 @ R=1.6m");
+  // leg->AddEntry(cfv3,"DCA pT-dep (strict)","p");
+  // leg->AddEntry(cfv4,"DCA_{xy} < 2.4 cm","p");
+  // (strcmp(system,"PAP"))?Tl.DrawLatex(0.12,1.493,"#Delta #eta < 0.03 #Delta #phi * < 0.04 @ R=1.6m"):Tl.DrawLatex(0.2,1.01,"#Delta #eta < 0.03 #Delta #phi * < 0.04 @ R=1.6m");
 
   // leg->AddEntry(cfv3,"#Delta #eta < 0.03 #Delta #phi_{min} * < 0.04","p");
   // leg->AddEntry(cfv4,"no cut","p");
@@ -180,12 +180,22 @@ TLegend *leg = new TLegend (0.3,0.7,0.8,0.8);
   // leg->AddEntry(cfv3,"field-- #Delta #eta < 0.03 #Delta #phi_{min} * < 0.04","p");
   // leg->AddEntry(cfv4,"field++ #Delta #eta < 0.03 #Delta #phi_{min} * < 0.04","p");
 
+  if (strcmp(cmp,"tpctof_tpconly_11h") == 0 || strcmp(cmp,"tpctof_tpconly_10h") == 0) {
+    leg->AddEntry(cfv3,"PID TPC & TOF","p");
+    leg->AddEntry(cfv4,"PID TPC only","p");
+  }
+  else   if (strcmp(cmp,"tpctof_10h_11h") == 0) {
+    leg->AddEntry(cfv3,"LHC 10h","p");
+    leg->AddEntry(cfv4,"LHC 11h","p");
+  }
+
+
   leg->Draw("same");
 
-  // can->SaveAs(Form("figs/comparison_%s/%s%s.png",cmp,system,kT));
-
-  // TFile* ofile = new TFile(Form("figs/comparison_%s/cfmb%s%s.root",cmp,system,kT),"recreate");
-  // cfv3->Write();
-  // cfv4->Write();
+  gSystem->mkdir(Form("figs/cmp_%s",cmp));
+  can->SaveAs(Form("figs/cmp_%s/%s%s.png",cmp,system,kT));
+  TFile* ofile = new TFile(Form("figs/cmp_%s/%s%s.root",cmp,system,kT),"recreate");
+  cfv3->Write();
+  cfv4->Write();
 
 }

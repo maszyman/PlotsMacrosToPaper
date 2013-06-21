@@ -11,13 +11,16 @@ static  int      myDarkBlue    = TColor::GetColor(0,0,128);
 // rWrite - 0-no,1-png,2-eps
 // rPerformance - 0-no,1-yes (ALICE logo etc.)
 // bin: 0 - all, 1- 0:5, 2- 5:10, etc
-void drawPID(const char* infilename, const char* system, const char* status, Int_t rWrite, Int_t rPerformance, Int_t bin)
+void drawPID(TString infilename, const char* system, const char* status, Int_t rWrite, Int_t rPerformance, Int_t bin)
 {
 
   int psibins = 3;
 
-	TFile *f = new TFile(infilename, "read");
-
+	TFile *f = new TFile(infilename.Data(), "read");
+  infilename.ReplaceAll(".root","");
+  infilename.ReplaceAll("../train_results_","");
+  infilename.ReplaceAll("/","");
+  cout << infilename.Data() << endl;
 	// TPC dEdx
   if (!bin) {
     TH2D* TPCdEdx =(TH2D*)f->Get(Form("TPCdEdxcut%s1%stpcM%iPsi%d",status, system,0,psibins));
@@ -46,9 +49,11 @@ void drawPID(const char* infilename, const char* system, const char* status, Int
 		//delete hEvMult;
 	}
 
+  myOptions(0);
+
 	TCanvas *c2 = new TCanvas("TPC dEdx", "TPC dEdx");
-	c2->SetGridx();
-	c2->SetGridy();
+	// c2->SetGridx();
+	// c2->SetGridy();
 	c2->SetFillColor(10);
 	c2->SetRightMargin(1.9);
 	c2->SetLogz();
@@ -90,7 +95,7 @@ void drawPID(const char* infilename, const char* system, const char* status, Int
 // 	TCanvas *c22 = new TCanvas("TPC2", "TPC2");
 // 	py->Draw();
 
-	postprocess(c2,Form("TPCdEdx%s",status),rWrite,rPerformance,system);
+	postprocess(c2,Form("TPCdEdx%s%s",infilename.Data(),status),rWrite,rPerformance,system);
 
 	// TPC Nsigma
   if (!bin)
@@ -110,8 +115,8 @@ void drawPID(const char* infilename, const char* system, const char* status, Int
 	}
 
 	TCanvas *c3 = new TCanvas("TPC Nsigma", "TPC Nsigma");
-	c3->SetGridx();
-	c3->SetGridy();
+	// c3->SetGridx();
+	// c3->SetGridy();
 	c3->SetFillColor(10);
 	c3->SetRightMargin(1.7);
 	c3->SetLogz();
@@ -124,7 +129,8 @@ void drawPID(const char* infilename, const char* system, const char* status, Int
 
 	TPCNsigma->Draw("colz");
 
-	postprocess(c3,Form("TPCNsigma%s",status),rWrite,rPerformance,system);
+
+	postprocess(c3,Form("TPCNsigma%s%s",infilename.Data(),status),rWrite,rPerformance,system);
 
 	// TOF Nsigma
   if (!bin)
@@ -145,8 +151,8 @@ void drawPID(const char* infilename, const char* system, const char* status, Int
 	}
 
 	TCanvas *c4 = new TCanvas("TOF Nsigma", "TOF Nsigma");
-	c4->SetGridx();
-	c4->SetGridy();
+	// c4->SetGridx();
+	// c4->SetGridy();
 	c4->SetFillColor(10);
 	c4->SetRightMargin(1.7);
 	c4->SetLogz();
@@ -158,7 +164,7 @@ void drawPID(const char* infilename, const char* system, const char* status, Int
 	TOFNsigma->GetZaxis()->SetLabelSize(0.03);
 	TOFNsigma->Draw("colz");
 
-	postprocess(c4,Form("TOFNsigma%s",status),rWrite,rPerformance,system);
+	postprocess(c4,Form("TOFNsigma%s%s",infilename.Data(),status),rWrite,rPerformance,system);
 
 	// TOF time
   if (!bin)
@@ -178,8 +184,8 @@ void drawPID(const char* infilename, const char* system, const char* status, Int
 	}
 
 	TCanvas *c5 = new TCanvas("TOF Time", "TOF Time");
-	c5->SetGridx();
-	c5->SetGridy();
+	// c5->SetGridx();
+	// c5->SetGridy();
 	c5->SetFillColor(10);
 	c5->SetRightMargin(1.7);
 	c5->SetLogz();
@@ -193,7 +199,7 @@ void drawPID(const char* infilename, const char* system, const char* status, Int
 	//  TOFTime->GetZaxis()->SetLabelSize(0.03);
 	TOFTime->Draw("colz");
 
-	postprocess(c5,Form("TOFTime%s",status),rWrite,rPerformance,system);
+	postprocess(c5,Form("TOFTime%s%s",infilename.Data(),status),rWrite,rPerformance,system);
 
 
 	// TPC & TOF Nsigma
@@ -214,8 +220,8 @@ void drawPID(const char* infilename, const char* system, const char* status, Int
 	}
 
 	TCanvas *c6 = new TCanvas("TPC TOF Nsigma", "TPC TOF Nsigma");
-	c6->SetGridx();
-	c6->SetGridy();
+	// c6->SetGridx();
+	// c6->SetGridy();
 	c6->SetFillColor(10);
 	c6->SetRightMargin(1.7);
 	c6->SetLogz();
@@ -227,27 +233,27 @@ void drawPID(const char* infilename, const char* system, const char* status, Int
 	TPCTOFNsigma->GetZaxis()->SetLabelSize(0.03);
 	TPCTOFNsigma->Draw("colz");
 
-	postprocess(c6,Form("TPCTOFNsigma%s",status),rWrite,rPerformance,system);
+	postprocess(c6,Form("TPCTOFNsigma%s%s",infilename.Data(),status),rWrite,rPerformance,system);
 
 }
 
 void prepareAll() {
 
-        myOptions(0);
+  myOptions(0);
 
-        gROOT->ForceStyle();
-        gStyle->SetPalette(1.0);
+  gROOT->ForceStyle();
+  gStyle->SetPalette(1.0);
 
-        TDatime now;
-        int iDate = now.GetDate();
-        int iYear=iDate/10000;
-        int iMonth=(iDate%10000)/100;
-        int iDay=iDate%100;
-        char* cMonth[12]={"Jan","Feb","Mar","Apr","May","Jun",
-                          "Jul","Aug","Sep","Oct","Nov","Dec"};
-        char cStamp1[25],cStamp2[25];
-        sprintf(cStamp1,"%i %s %i",iDay, cMonth[iMonth-1], iYear);
-        sprintf(cStamp2,"%i/%.2d/%i",iDay, iMonth, iYear);
+  TDatime now;
+  int iDate = now.GetDate();
+  int iYear=iDate/10000;
+  int iMonth=(iDate%10000)/100;
+  int iDay=iDate%100;
+  char* cMonth[12]={"Jan","Feb","Mar","Apr","May","Jun",
+                    "Jul","Aug","Sep","Oct","Nov","Dec"};
+  char cStamp1[25],cStamp2[25];
+  sprintf(cStamp1,"%i %s %i",iDay, cMonth[iMonth-1], iYear);
+  sprintf(cStamp2,"%i/%.2d/%i",iDay, iMonth, iYear);
 }
 
 void myLegendSetUp(TLegend *currentLegend=0,float currentTextSize=0.07){
@@ -270,8 +276,8 @@ void myPadSetUp(TPad *currentPad, float currentLeft=0.11, float currentTop=0.04,
 }
 
 void myGraphSetUp(TGraphErrors *currentGraph=0, Float_t currentMarkerSize = 1.0,
-		  int currentMarkerStyle=20, int currentMarkerColor=0,
-		  int currentLineStyle=1, int currentLineColor=0){
+                  int currentMarkerStyle=20, int currentMarkerColor=0,
+                  int currentLineStyle=1, int currentLineColor=0){
 	currentGraph->SetMarkerSize(currentMarkerSize);
 	currentGraph->SetMarkerStyle(currentMarkerStyle);
 	currentGraph->SetMarkerColor(currentMarkerColor);
@@ -327,7 +333,9 @@ void myOptions(Int_t lStat=0){
 }
 
 
-void postprocess(TCanvas* c2, const char* name, Int_t rWrite, Int_t rPerformance,const char* system) {
+void postprocess(TCanvas* c2, TString name, Int_t rWrite, Int_t rPerformance,const char* system) {
+
+
 	if (rPerformance){
 		TLatex *alice = new TLatex(0.65,0.47,"Performance");
 		alice->SetNDC();
@@ -368,10 +376,14 @@ void postprocess(TCanvas* c2, const char* name, Int_t rWrite, Int_t rPerformance
 		myAliceLogo->Draw();
 	}
 
+  name.ReplaceAll(".root","");
+  name.ReplaceAll("../train_results_","");
+  name.ReplaceAll("/","");
+
 	if (rWrite == 1){
-		c2->SaveAs(Form("%s_%s.png",name,system));
+		c2->SaveAs(Form("figs/%s_%s.png",name.Data(),system));
 	}
 	if (rWrite == 2)
-		c2->SaveAs(Form("%s.eps",name));
+		c2->SaveAs(Form("figs/%s.eps",name.Data()));
 
 }

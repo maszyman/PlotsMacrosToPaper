@@ -1,7 +1,7 @@
-void plotdetadphistar(const char* infilename1, const char* system, const char* kT, int qinvdist = 0) {
+void plotdetadphistar(TString infilename1, const char* system, const char* kT, int qinvdist = 0) {
 
 
-  TFile* infile1 = new TFile(infilename1,"read");
+  TFile* infile1 = new TFile(infilename1.Data(),"read");
 
   TH2D* num;
   TH2D* den;
@@ -17,13 +17,13 @@ void plotdetadphistar(const char* infilename1, const char* system, const char* k
 
     // proxnum = (TH2D*)infile1->Get(Form("NumRadDcqinvinner%stpcM0",system,kT));
     // proxden = (TH2D*)infile1->Get(Form("DenRadDcqinvinner%stpcM0",system,kT));
-    TH1D* proxnum_dphis = (TH1D*)num->ProjectionX("proxnum_dphis",1,50,"e");
-    TH1D* proxden_dphis = (TH1D*)den->ProjectionX("proxden_dphis",1,50,"e");
+    TH1D* proxnum_dphis = (TH1D*)num->ProjectionX("proxnum_dphis",11,40,"e");
+    TH1D* proxden_dphis = (TH1D*)den->ProjectionX("proxden_dphis",11,40,"e");
 
     // proynum = (TH2D*)infile1->Get(Form("NumRadDcqinvinner%stpcM0",system,kT));
     // proyden = (TH2D*)infile1->Get(Form("DenRadDcqinvinner%stpcM0",system,kT));
-    TH1D* proynum_deta = (TH1D*)num->ProjectionY("proynum_deta",1,50,"e");
-    TH1D* proyden_deta = (TH1D*)den->ProjectionY("proyden_deta",1,50,"e");
+    TH1D* proynum_deta = (TH1D*)num->ProjectionY("proynum_deta",11,40,"e");
+    TH1D* proyden_deta = (TH1D*)den->ProjectionY("proyden_deta",11,40,"e");
 
   }
   else {
@@ -42,13 +42,18 @@ void plotdetadphistar(const char* infilename1, const char* system, const char* k
   num->Divide(den);
   num->Scale(norm);
 
+  num->GetXaxis()->SetRangeUser(-0.08,0.08);
+  num->GetYaxis()->SetRangeUser(-0.08,0.08);
+
+  num->GetXaxis()->SetTitleSize(0.08);
+  num->GetYaxis()->SetTitleSize(0.08);
 
   // num->SetMarkerStyle(20);
   // num->SetMarkerColor(kRed);
 
   gStyle->SetOptStat(0);
   TCanvas* can = new TCanvas("asd","asd");
-  //can->SetMargin(0.15,0.03,0.15,0.03);
+  can->SetMargin(0.15,0.1,0.15,0.01);
   can->SetLogz();
 
   num->Draw("colz");
@@ -97,23 +102,37 @@ void plotdetadphistar(const char* infilename1, const char* system, const char* k
     // proxden = (TH2D*)infile1->Get(Form("DenRadDcqinvinner%stpcM0",system,kT));
     // TH1D* proxnum_dphis = (TH1D*)proxnum->ProjectionX("proxnum_dphis",1,50,"e");
     // TH1D* proxden_dphis = (TH1D*)proxden->ProjectionX("proxden_dphis",1,50,"e");
-    double norm = proxden_dphis->Integral(1,50)/proxnum_dphis->Integral(1,50);
+    double norm = proxden_dphis->Integral(11,40)/proxnum_dphis->Integral(11,40);
     proxnum_dphis->Divide(proxden_dphis);
     proxnum_dphis->Scale(norm);
+    proxnum_dphis->SetTitle("");
+    proxnum_dphis->GetXaxis()->SetTitleSize(0.078);
 
-    norm = proyden_deta->Integral(1,50)/proynum_deta->Integral(1,50);
+    norm = proyden_deta->Integral(11,40)/proynum_deta->Integral(11,40);
     proynum_deta->Divide(proyden_deta);
     proynum_deta->Scale(norm);
+    proynum_deta->SetTitle("");
+    proynum_deta->GetXaxis()->SetTitleSize(0.078);
 
-    TCanvas* can2 = new TCanvas("asd2","asd2");
+    TCanvas* can2 = new TCanvas("asd2","asd2",1280,480);
     can2->SetLogy();
     can2->Divide(2,1);
     can2->cd(1);
+    TPad* pad1 = (TPad*)can2->GetPad(1);
+    pad1->SetMargin(0.15,0.1,0.15,0.01);
     proxnum_dphis->Draw();
     can2->cd(2);
+    TPad* pad2 = (TPad*)can2->GetPad(2);
+    pad2->SetMargin(0.15,0.1,0.15,0.01);
     proynum_deta->Draw();
 
 
+  infilename1.ReplaceAll(".root","");
+  infilename1.ReplaceAll("../train_results_","");
+  infilename1.ReplaceAll("/","");
+
+  can->SaveAs(Form("figs/DetaDphis%s%s%s.png",system,kT,infilename1.Data()));
+  can2->SaveAs(Form("figs/DetaDphisProjSep%s%s%s.png",system,kT,infilename1.Data()));
 
     // num->ProjectionX("dphis",1,50,"e")->Draw();
     // // TH1D* proj_deta = (TH1D*)num->ProjectionX("pro_deta",45,46,"e");
