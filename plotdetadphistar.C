@@ -26,6 +26,14 @@ void plotdetadphistar(TString infilename1, const char* system, const char* kT, i
     TH1D* proyden_deta = (TH1D*)den->ProjectionY("proyden_deta",11,40,"e");
 
   }
+  else if (qinvdist == 2) {
+    num = (TH2D*)infile1->Get(Form("cnumepNonIdEPstar",system,kT));
+    den = (TH2D*)infile1->Get(Form("cdenepNonIdEPstar",system,kT));
+
+    num->SetXTitle("#Delta #phi*");
+    num->SetYTitle("#Delta #eta");
+
+  }
   else {
     num = (TH2D*)infile1->Get(Form("NumDTPCcqinvinner%stpcM0",system,kT));
     den = (TH2D*)infile1->Get(Form("DenDTPCcqinvinner%stpcM0",system,kT));
@@ -37,13 +45,15 @@ void plotdetadphistar(TString infilename1, const char* system, const char* kT, i
 
   num->SetTitle("");
 
+  // den->GetXaxis()->SetRangeUser(-0.08,0.08);
+  // den->GetYaxis()->SetRangeUser(-0.08,0.08);
+  num->GetXaxis()->SetRangeUser(-0.06,0.06);
+  num->GetYaxis()->SetRangeUser(-0.06,0.06);
 
-  double norm = den->GetEntries()/num->GetEntries();
+  //double norm = den->GetEntries()/num->GetEntries();
   num->Divide(den);
-  num->Scale(norm);
+  // num->Scale(norm);
 
-  num->GetXaxis()->SetRangeUser(-0.08,0.08);
-  num->GetYaxis()->SetRangeUser(-0.08,0.08);
 
   num->GetXaxis()->SetTitleSize(0.08);
   num->GetYaxis()->SetTitleSize(0.08);
@@ -57,6 +67,7 @@ void plotdetadphistar(TString infilename1, const char* system, const char* kT, i
   can->SetLogz();
 
   num->Draw("colz");
+  // num->Draw("surf1");
 
   int mult = -1;
   TLatex Tl;
